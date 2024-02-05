@@ -67,10 +67,11 @@ bool PID::Compute()
       double error = *mySetpoint - input;
       double dInput = (input - lastInput);
       outputSum+= (ki * error);
+      dispIE = outputSum;
 
       /*Add Proportional on Measurement, if P_ON_M is specified*/
       if(!pOnE) outputSum-= kp * dInput;
-
+      dispPM = outputSum-dispIE;
       if(outputSum > outMax) outputSum= outMax;
       else if(outputSum < outMin) outputSum= outMin;
 
@@ -78,9 +79,11 @@ bool PID::Compute()
 	   double output;
       if(pOnE) output = kp * error;
       else output = 0;
+      dispPE = output;
+      dispDE = -kd * dInput;
 
       /*Compute Rest of PID Output*/
-      output += outputSum - kd * dInput;
+      output += outputSum + dispDE;
 
 	    if(output > outMax) output = outMax;
       else if(output < outMin) output = outMin;
@@ -221,4 +224,8 @@ double PID::GetKi(){ return  dispKi;}
 double PID::GetKd(){ return  dispKd;}
 int PID::GetMode(){ return  inAuto ? AUTOMATIC : MANUAL;}
 int PID::GetDirection(){ return controllerDirection;}
+double PID::GetPE(){return dispPE;}
+double PID::GetIE(){return dispIE;}
+double PID::GetDE(){return dispDE;}
+double PID::GetPM(){return dispPM;}
 
