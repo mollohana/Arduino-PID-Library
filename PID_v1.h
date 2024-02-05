@@ -62,6 +62,7 @@ class PID
 	double GetPE();
 	double GetIE();
 	double GetDE();
+	double GetPM();
 
   private:
 	void Initialize();
@@ -73,6 +74,7 @@ class PID
 	double dispPE;
 	double dispIE;
 	double dispDE;
+	double dispPM;
     
 	double kp;                  // * (P)roportional Tuning Parameter
     double ki;                  // * (I)ntegral Tuning Parameter
