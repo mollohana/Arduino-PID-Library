@@ -59,6 +59,9 @@ class PID
 	double GetKd();						  // where it's important to know what is actually 
 	int GetMode();						  //  inside the PID.
 	int GetDirection();					  //
+	double GetPE();
+	double GetIE();
+	double GetDE();
 
   private:
 	void Initialize();
@@ -66,6 +69,10 @@ class PID
 	double dispKp;				// * we'll hold on to the tuning parameters in user-entered 
 	double dispKi;				//   format for display purposes
 	double dispKd;				//
+
+	double dispPE;
+	double dispIE;
+	double dispDE;
     
 	double kp;                  // * (P)roportional Tuning Parameter
     double ki;                  // * (I)ntegral Tuning Parameter
